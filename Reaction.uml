@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>SwordsAndShields.model.reactions.Reaction</OriginalElement>
+  <nodes>
+    <node x="359.75" y="860.0">SwordsAndShields.model.Game</node>
+    <node x="422.25" y="1379.0">SwordsAndShields.controller.TextController</node>
+    <node x="410.0321644042232" y="255.0">SwordsAndShields.model.actions.Action</node>
+    <node x="0.0" y="178.0">SwordsAndShields.model.Board</node>
+    <node x="673.75" y="1058.0">SwordsAndShields.controller.Command</node>
+    <node x="109.25" y="576.0">SwordsAndShields.model.reactions.Reaction</node>
+    <node x="135.26044494720963" y="0.0">SwordsAndShields.model.cells.BoardCell</node>
+    <node x="528.25" y="455.0">SwordsAndShields.model.Player</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="SwordsAndShields.model.reactions.Reaction" target="SwordsAndShields.model.Board">
+      <point x="-129.0" y="-36.5" />
+      <point x="173.75" y="430.0" />
+      <point x="204.75" y="430.0" />
+      <point x="87.75" y="113.5" />
+    </edge>
+    <edge source="SwordsAndShields.model.Game" target="SwordsAndShields.model.cells.BoardCell">
+      <point x="135.69230769230774" y="-234.5" />
+      <point x="642.4423076923077" y="840.0" />
+      <point x="827.75" y="840.0" />
+      <point x="827.75" y="158.0" />
+      <point x="328.76044494720963" y="158.0" />
+      <point x="86.0" y="59.0" />
+    </edge>
+    <edge source="SwordsAndShields.controller.TextController" target="SwordsAndShields.model.Game">
+      <point x="0.0" y="-36.5" />
+      <point x="0.0" y="234.5" />
+    </edge>
+    <edge source="SwordsAndShields.model.Game" target="SwordsAndShields.model.reactions.Reaction">
+      <point x="-90.46153846153851" y="-234.5" />
+      <point x="416.28846153846155" y="820.0" />
+      <point x="157.625" y="820.0" />
+      <point x="-145.125" y="36.5" />
+    </edge>
+    <edge source="SwordsAndShields.model.Game" target="SwordsAndShields.model.Board">
+      <point x="-113.07692307692315" y="-234.5" />
+      <point x="393.6730769230769" y="830.0" />
+      <point x="98.74999999999994" y="830.0" />
+      <point x="98.74999999999994" y="430.0" />
+      <point x="146.25" y="430.0" />
+      <point x="29.25" y="113.5" />
+    </edge>
+    <edge source="SwordsAndShields.model.reactions.Reaction" target="SwordsAndShields.model.cells.BoardCell">
+      <point x="0.0" y="-36.5" />
+      <point x="302.75" y="158.0" />
+      <point x="285.76044494720963" y="158.0" />
+      <point x="43.0" y="59.0" />
+    </edge>
+    <edge source="SwordsAndShields.model.reactions.Reaction" target="SwordsAndShields.model.Game">
+      <point x="145.125" y="36.5" />
+      <point x="447.875" y="790.0" />
+      <point x="484.13461538461536" y="790.0" />
+      <point x="-22.61538461538467" y="-234.5" />
+    </edge>
+    <edge source="SwordsAndShields.model.Board" target="SwordsAndShields.model.cells.BoardCell">
+      <point x="78.0" y="-113.5" />
+      <point x="195.0" y="158.0" />
+      <point x="242.76044494720963" y="158.0" />
+      <point x="0.0" y="59.0" />
+    </edge>
+    <edge source="SwordsAndShields.controller.TextController" target="SwordsAndShields.model.Board">
+      <point x="-67.6" y="-36.5" />
+      <point x="439.15000000000003" y="1359.0" />
+      <point x="76.74999999999994" y="1359.0" />
+      <point x="76.74999999999994" y="430.0" />
+      <point x="29.25" y="430.0" />
+      <point x="-87.75" y="113.5" />
+    </edge>
+    <edge source="SwordsAndShields.model.Game" target="SwordsAndShields.model.Player">
+      <point x="67.84615384615381" y="-234.5" />
+      <point x="574.5961538461538" y="810.0" />
+      <point x="636.625" y="810.0" />
+      <point x="-36.125" y="157.5" />
+    </edge>
+    <edge source="SwordsAndShields.model.reactions.Reaction" target="SwordsAndShields.model.actions.Action">
+      <point x="129.0" y="-36.5" />
+      <point x="431.75" y="430.0" />
+      <point x="440.19883107088987" y="430.0" />
+      <point x="-60.33333333333334" y="36.5" />
+    </edge>
+    <edge source="SwordsAndShields.controller.TextController" target="SwordsAndShields.controller.Command">
+      <point x="67.6" y="-36.5" />
+      <point x="574.35" y="1359.0" />
+      <point x="774.75" y="1359.0" />
+      <point x="0.0" y="36.5" />
+    </edge>
+    <edge source="SwordsAndShields.model.Game" target="SwordsAndShields.model.actions.Action">
+      <point x="22.615384615384585" y="-234.5" />
+      <point x="529.3653846153846" y="840.0" />
+      <point x="517.75" y="840.0" />
+      <point x="517.75" y="430.0" />
+      <point x="560.8654977375566" y="430.0" />
+      <point x="60.33333333333336" y="36.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.2809836065573772" x="487.21653442539025" y="617.7054005630919" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>Production</SCOPE>
+  <VISIBILITY>public</VISIBILITY>
+</Diagram>
+
