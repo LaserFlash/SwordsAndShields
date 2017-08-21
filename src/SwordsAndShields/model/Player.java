@@ -119,4 +119,8 @@ public class Player {
     public Collection<PieceCell> getDeadPieces() {
         return Collections.unmodifiableCollection(grave.values());
     }
+
+    public Collection<PieceCell> getPiecesOnBoard() {
+        return Collections.unmodifiableCollection(piecesOnBoard.values());
+    }
 }

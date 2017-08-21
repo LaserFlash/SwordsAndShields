@@ -358,7 +358,7 @@ public class Game {
     public Collection<PieceCell> getGreenPiecesAvailable() {
         return players.get(0).getUnusedPieces();
     }
-    public Collection<PieceCell> getYelllowPiecesAvailable() {
+    public Collection<PieceCell> getYellowPiecesAvailable() {
         return players.get(1).getUnusedPieces();
     }
 
@@ -368,4 +368,7 @@ public class Game {
     public Collection<PieceCell> getYellowPiecesDead() {
         return players.get(1).getDeadPieces();
     }
+
+    public Collection<PieceCell> getGreenPiecesOnBoard(){ return players.get(0).getPiecesOnBoard();}
+    public Collection<PieceCell> getYellowPiecesOnBoard(){ return players.get(1).getPiecesOnBoard();}
 }

@@ -3,6 +3,7 @@ package SwordsAndShields.ui;
 import SwordsAndShields.model.Board;
 import SwordsAndShields.model.Game;
 import SwordsAndShields.model.cells.BoardCell;
+import SwordsAndShields.model.cells.PieceCell;
 
 import java.awt.*;
 
@@ -24,7 +25,9 @@ public class BoardCanvas extends Canvas {
             for (int c = 0; c < b.getNumCols();c++){
                 BoardCell cell = b.getCellAt(r,c);
                 if (cell != null) {
-                    cell.draw(g, x, y, Color.BLUE);
+                    cell.draw(g, x, y, getCellColor(cell));
+                }else{
+                    //todo draw null cell, alternating bg color
                 }
                 x += DrawPiece.size;
             }
@@ -32,5 +35,18 @@ public class BoardCanvas extends Canvas {
             x = 10;
         }
 
+    }
+
+    private Color getCellColor(BoardCell cell){
+        if (cell.getClass() == PieceCell.class){
+            if (game.getGreenPiecesOnBoard().contains(cell)){
+                return DrawPiece.greenBG;
+            }
+            if (game.getYellowPiecesOnBoard().contains(cell)){
+                return DrawPiece.yellowBG;
+            }
+        }
+        //Todo player cell, creation cell
+        return Color.white;
     }
 }

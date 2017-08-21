@@ -39,7 +39,7 @@ public class BoardFrame extends JFrame implements ActionListener{
          * Setup board display
          */
         this.greenAvailable = new PiecesCanvas("Green Available", Color.green, game.getGreenPiecesAvailable());
-        this.yellowAvailable = new PiecesCanvas("Yellow Available", Color.yellow, game.getYelllowPiecesAvailable());
+        this.yellowAvailable = new PiecesCanvas("Yellow Available", Color.yellow, game.getYellowPiecesAvailable());
         this.greenCemetery = new PiecesCanvas("Green Dead", Color.green, game.getGreenPiecesDead());
         this.yellowCemetery = new PiecesCanvas("Yellow Dead", Color.yellow, game.getYellowPiecesDead());
         this.boardCanvas = new BoardCanvas(game);
