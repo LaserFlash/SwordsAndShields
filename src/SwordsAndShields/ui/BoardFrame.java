@@ -66,16 +66,19 @@ public class BoardFrame extends JFrame implements ActionListener{
         yPanel.add(yellowCemetery,BorderLayout.SOUTH);
         add(yPanel,BorderLayout.EAST);
 
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         pack();
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        Dimension scrnsize = toolkit.getScreenSize();
+        setBounds((scrnsize.width - getWidth()) / 2,
+                (scrnsize.height - getHeight()) / 2, getWidth(), getHeight());
+
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
 
         bPanel.setVisible(true);
         gPanel.setVisible(true);
         yPanel.setVisible(true);
         setVisible(true);
-
-
-
     }
 
     private JToolBar setupToolBar(){

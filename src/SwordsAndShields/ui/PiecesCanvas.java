@@ -9,11 +9,6 @@ import java.util.Collection;
 
 public class PiecesCanvas extends Canvas {
 
-    private static final int size = 50;
-    private static final int itemWidth = size/8;
-    private static final int shieldHeight = size;
-    private static final int swordHeight = size/2;
-
     private final String heading;
     private final Collection<PieceCell> pieces;
 
@@ -36,56 +31,12 @@ public class PiecesCanvas extends Canvas {
             if (i > 3){
                 i=0;
                 x = 10;
-                y+= size + 10;
+                y+= DrawPiece.size + 10;
             }
-            drawPiece(g,p,x,y);
-            x+=size +10;
+            DrawPiece.drawPiece(g,p,x,y,pieceBG);
+            x+= DrawPiece.size +10;
             i++;
         }
-    }
-
-    private void drawPiece(Graphics g, PieceCell p, int x, int y){
-
-        g.setColor(pieceBG);
-        g.fillRect(x,y,size,size);
-        g.setColor(Color.darkGray);
-
-        switch (p.getSide(Direction.NORTH)){
-            case SHIELD:
-                g.fillRect(x,y,shieldHeight,itemWidth);
-                break;
-            case SWORD:
-                g.fillRect(x + size/2 - itemWidth/2,y,itemWidth,swordHeight);
-                break;
-        }
-
-        switch (p.getSide(Direction.EAST)){
-            case SHIELD:
-                g.fillRect(x + size - itemWidth, y, itemWidth, shieldHeight);
-                break;
-            case SWORD:
-                g.fillRect(x + size/2 - itemWidth/2, y, itemWidth, swordHeight);
-                break;
-        }
-
-        switch (p.getSide(Direction.SOUTH)){
-            case SHIELD:
-                g.fillRect(x, y + size - itemWidth, shieldHeight, itemWidth);
-                break;
-            case SWORD:
-                g.fillRect(x + size/2 - itemWidth/2, y + size/2, itemWidth, swordHeight);
-                break;
-        }
-
-        switch (p.getSide(Direction.WEST)){
-            case SHIELD:
-                g.fillRect(x, y, itemWidth, shieldHeight);
-                break;
-            case SWORD:
-                g.fillRect(x , y + size/2 - itemWidth/2, swordHeight, itemWidth);
-                break;
-        }
-
     }
 
 }
