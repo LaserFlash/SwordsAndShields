@@ -11,8 +11,8 @@ import java.awt.event.ActionListener;
 public class BoardFrame extends JFrame implements ActionListener{
     private final JToolBar toolBar;
 
-    private final Canvas greenCreated;
-    private final Canvas yellowCreated;
+    private final Canvas greenAvailable;
+    private final Canvas yellowAvailable;
     private final Canvas boardCanvas;
     private final Canvas greenCemetery;
     private final Canvas yellowCemetery;
@@ -24,25 +24,58 @@ public class BoardFrame extends JFrame implements ActionListener{
     public BoardFrame(GUIController controller){
         super(StartMenuFrame.TITLE);
         this.controller = controller;
+        /*
+         * Setup Game and start
+         */
+        this.game = new Game(new Board());
 
         /*
          * Setup GUI display
          */
         this.toolBar = setupToolBar();
         setLayout(new BorderLayout());
-        add(toolBar,BorderLayout.NORTH);
+        add(toolBar,BorderLayout.PAGE_START);
         /*
          * Setup board display
          */
+        this.greenAvailable = new PiecesCanvas("Green Available", Color.green, game.getGreenPiecesAvailable());
+        this.yellowAvailable = new PiecesCanvas("Yellow Available", Color.yellow, game.getYelllowPiecesAvailable());
+        this.greenCemetery = new PiecesCanvas("Green Dead", Color.green, game.getGreenPiecesDead());
+        this.yellowCemetery = new PiecesCanvas("Yellow Dead", Color.yellow, game.getYellowPiecesDead());
+        this.boardCanvas = new BoardCanvas();
+
+        JPanel gPanel = new JPanel();
+        gPanel.setLayout(new BorderLayout());
+        greenAvailable.setSize(new Dimension(250,400));
+        greenCemetery.setSize(new Dimension(250,400));
+        gPanel.add(greenAvailable,BorderLayout.NORTH);
+        gPanel.add(greenCemetery,BorderLayout.SOUTH);
+        add(gPanel,BorderLayout.WEST);
+
+        JPanel bPanel = new JPanel();
+        bPanel.setLayout(new BorderLayout());
+        boardCanvas.setSize(200,200);
+        bPanel.add(boardCanvas,BorderLayout.CENTER);
+        add(bPanel,BorderLayout.CENTER);
+
+        JPanel yPanel = new JPanel();
+        yPanel.setLayout(new BorderLayout());
+        yellowAvailable.setSize(new Dimension(250,400));
+        yellowCemetery.setSize(new Dimension(250,400));
+        yPanel.add(yellowAvailable,BorderLayout.NORTH);
+        yPanel.add(yellowCemetery,BorderLayout.SOUTH);
+        add(yPanel,BorderLayout.EAST);
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         pack();
+
+        bPanel.setVisible(true);
+        gPanel.setVisible(true);
+        yPanel.setVisible(true);
         setVisible(true);
 
-        /*
-         * Setup Game and start
-         */
-        this.game = new Game(new Board());
+
+
     }
 
     private JToolBar setupToolBar(){
@@ -65,6 +98,15 @@ public class BoardFrame extends JFrame implements ActionListener{
         bar.add(surrender);
 
         return bar;
+    }
+
+    @Override
+    public void repaint(){
+        boardCanvas.repaint();
+        yellowAvailable.repaint();
+        yellowCemetery.repaint();
+        greenAvailable.repaint();
+        greenCemetery.repaint();
     }
 
     @Override
