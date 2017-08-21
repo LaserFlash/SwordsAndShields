@@ -3,6 +3,9 @@ package SwordsAndShields.model.cells;
 
 import SwordsAndShields.model.Direction;
 import SwordsAndShields.model.TextRep;
+import SwordsAndShields.ui.DrawPiece;
+
+import java.awt.*;
 
 /**
  * Representation of a piece on the board
@@ -115,6 +118,49 @@ public class PieceCell extends BoardCell{
          * @return
          */
         public abstract char textRep(Direction d);
+    }
+
+    @Override
+    public void draw(Graphics g, int x, int y, Color bg) {
+        g.setColor(bg);
+        g.fillRect(x,y, DrawPiece.size,DrawPiece.size);
+        g.setColor(Color.darkGray);
+
+        switch (getSide(Direction.NORTH)){
+            case SHIELD:
+                g.fillRect(x,y,DrawPiece.shieldHeight,DrawPiece.itemWidth);
+                break;
+            case SWORD:
+                g.fillRect(x + DrawPiece.size/2 - DrawPiece.itemWidth/2,y,DrawPiece.itemWidth,DrawPiece.swordHeight);
+                break;
+        }
+
+        switch (getSide(Direction.EAST)){
+            case SHIELD:
+                g.fillRect(x + DrawPiece.size - DrawPiece.itemWidth, y, DrawPiece.itemWidth, DrawPiece.shieldHeight);
+                break;
+            case SWORD:
+                g.fillRect(x + DrawPiece.size/2 - DrawPiece.itemWidth/2, y, DrawPiece.itemWidth, DrawPiece.swordHeight);
+                break;
+        }
+
+        switch (getSide(Direction.SOUTH)){
+            case SHIELD:
+                g.fillRect(x, y + DrawPiece.size - DrawPiece.itemWidth, DrawPiece.shieldHeight, DrawPiece.itemWidth);
+                break;
+            case SWORD:
+                g.fillRect(x + DrawPiece.size/2 - DrawPiece.itemWidth/2, y + DrawPiece.size/2, DrawPiece.itemWidth, DrawPiece.swordHeight);
+                break;
+        }
+
+        switch (getSide(Direction.WEST)){
+            case SHIELD:
+                g.fillRect(x, y, DrawPiece.itemWidth, DrawPiece.shieldHeight);
+                break;
+            case SWORD:
+                g.fillRect(x , y + DrawPiece.size/2 - DrawPiece.itemWidth/2, DrawPiece.swordHeight, DrawPiece.itemWidth);
+                break;
+        }
     }
 
     /**

@@ -42,7 +42,7 @@ public class BoardFrame extends JFrame implements ActionListener{
         this.yellowAvailable = new PiecesCanvas("Yellow Available", Color.yellow, game.getYelllowPiecesAvailable());
         this.greenCemetery = new PiecesCanvas("Green Dead", Color.green, game.getGreenPiecesDead());
         this.yellowCemetery = new PiecesCanvas("Yellow Dead", Color.yellow, game.getYellowPiecesDead());
-        this.boardCanvas = new BoardCanvas();
+        this.boardCanvas = new BoardCanvas(game);
 
         JPanel gPanel = new JPanel();
         gPanel.setLayout(new BorderLayout());
@@ -54,7 +54,7 @@ public class BoardFrame extends JFrame implements ActionListener{
 
         JPanel bPanel = new JPanel();
         bPanel.setLayout(new BorderLayout());
-        boardCanvas.setSize(200,200);
+        boardCanvas.setSize(550,550);
         bPanel.add(boardCanvas,BorderLayout.CENTER);
         add(bPanel,BorderLayout.CENTER);
 

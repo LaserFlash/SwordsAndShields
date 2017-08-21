@@ -1,6 +1,10 @@
 package SwordsAndShields.model.cells;
 
 
+import SwordsAndShields.ui.DrawPiece;
+
+import java.awt.*;
+
 /**
  * PlayerCell is a type of BoardCell
  * This is a cell that is the Player.
@@ -39,6 +43,11 @@ public class PlayerCell extends BoardCell {
         b.append(token);
         b.append("(" + token.getNumber()+ ")");
         return b.toString();
+    }
+
+    @Override
+    public void draw(Graphics g, int x, int y, Color bg) {
+        g.fillOval(x,y, DrawPiece.size/2,DrawPiece.size/2);
     }
 
     public char getID(){

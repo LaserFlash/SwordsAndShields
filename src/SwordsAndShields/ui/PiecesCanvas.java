@@ -33,7 +33,7 @@ public class PiecesCanvas extends Canvas {
                 x = 10;
                 y+= DrawPiece.size + 10;
             }
-            DrawPiece.drawPiece(g,p,x,y,pieceBG);
+            p.draw(g,x,y,pieceBG);
             x+= DrawPiece.size +10;
             i++;
         }
