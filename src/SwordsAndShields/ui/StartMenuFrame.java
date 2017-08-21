@@ -46,7 +46,17 @@ public class StartMenuFrame extends JFrame implements ActionListener{
         add(toolBar,BorderLayout.NORTH);
         add(contentArea,BorderLayout.CENTER);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        // Center window in screen
         pack();
+        setSize(getWidth(),200);
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        Dimension scrnsize = toolkit.getScreenSize();
+        setBounds((scrnsize.width - getWidth()) / 2,
+                (scrnsize.height - getHeight()) / 2, getWidth(), getHeight());
+
+
+        setResizable(false);
         setVisible(true);
     }
 
