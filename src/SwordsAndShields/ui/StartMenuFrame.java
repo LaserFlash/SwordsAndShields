@@ -1,14 +1,15 @@
 package SwordsAndShields.ui;
 
-import SwordsAndShields.model.Board;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class StartMenuFrame extends JFrame implements ActionListener{
-    private static final String TITLE = "Sword and Shield";
+
+    private final GUIController controller;
+
+    public static final String TITLE = "Sword and Shield";
     private final JToolBar toolBar;
     private final JPanel contentArea;
     private final JButton start;
@@ -16,8 +17,9 @@ public class StartMenuFrame extends JFrame implements ActionListener{
     private final JButton quit;
 
 
-    public StartMenuFrame(){
+    public StartMenuFrame(GUIController controller){
         super(TITLE);
+        this.controller = controller;
         setLayout(new BorderLayout());
         this.toolBar = new JToolBar();
 
@@ -48,12 +50,6 @@ public class StartMenuFrame extends JFrame implements ActionListener{
         setVisible(true);
     }
 
-
-
-    public static void main(String[] args) {
-        StartMenuFrame controller = new StartMenuFrame();
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()){
@@ -65,11 +61,8 @@ public class StartMenuFrame extends JFrame implements ActionListener{
                 break;
 
             case "start":
-                contentArea.removeAll();
-                contentArea.add(new BoardFrame());
-                contentArea.updateUI();
-                start.setVisible(false);
-                info.setVisible(false);
+                controller.startGame();
+                this.dispose();
                 break;
 
             case "quit":
