@@ -355,4 +355,17 @@ public class Game {
         this.turnState = turnState;
     }
 
+    public Collection<PieceCell> getGreenPiecesAvailable() {
+        return players.get(0).getUnusedPieces();
+    }
+    public Collection<PieceCell> getYelllowPiecesAvailable() {
+        return players.get(1).getUnusedPieces();
+    }
+
+    public Collection<PieceCell> getGreenPiecesDead() {
+        return players.get(0).getDeadPieces();
+    }
+    public Collection<PieceCell> getYellowPiecesDead() {
+        return players.get(1).getDeadPieces();
+    }
 }

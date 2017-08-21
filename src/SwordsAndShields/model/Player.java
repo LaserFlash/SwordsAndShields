@@ -22,6 +22,7 @@ public class Player {
     private Map<Character,PieceCell> piecesOnBoard;
     private Map<Character,PieceCell> grave;
 
+
     /**
      * @param cell      represents player on board
      * @param b         piece ids capitalisation
@@ -110,4 +111,12 @@ public class Player {
     }
 
     public Collection<Character> getDeadPieceIDs(){return grave.keySet();}
+
+    public Collection<PieceCell> getUnusedPieces(){
+        return Collections.unmodifiableCollection(pieces.values());
+    }
+
+    public Collection<PieceCell> getDeadPieces() {
+        return Collections.unmodifiableCollection(grave.values());
+    }
 }

@@ -85,7 +85,6 @@ public class PieceCell extends BoardCell{
         for (int i = 0; i < d.ordinal(); i++){
             sides.rotate();
         }
-
     }
 
     /**
@@ -146,10 +145,10 @@ public class PieceCell extends BoardCell{
      * Holding object for the 4 sides of the shapes
      */
     public static class Sides{
-        SideType north;
-        SideType east;
-        SideType south;
-        SideType west;
+        private SideType north;
+        private SideType east;
+        private SideType south;
+        private SideType west;
 
         public Sides(SideType n, SideType e, SideType s, SideType w){
             north = n;
@@ -161,7 +160,7 @@ public class PieceCell extends BoardCell{
         /**
          * Rotate the piece 90 degrees clockwise
          */
-        public void rotate() {
+        private void rotate() {
             Sides tmp = new Sides(north,east, south, west);
 
             north = tmp.west;
