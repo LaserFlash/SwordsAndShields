@@ -4,10 +4,12 @@ import SwordsAndShields.model.Board;
 import SwordsAndShields.model.Game;
 import SwordsAndShields.model.cells.BoardCell;
 import SwordsAndShields.model.cells.PieceCell;
+import SwordsAndShields.model.cells.PlayerCell;
 
+import javax.swing.*;
 import java.awt.*;
 
-public class BoardCanvas extends Canvas {
+public class BoardCanvas extends JPanel {
 
     private final Game game;
 
@@ -16,23 +18,27 @@ public class BoardCanvas extends Canvas {
     }
 
     @Override
-    public void paint(Graphics g){
+    public void paintComponent(Graphics g){
+        super.paintComponent(g);
         g.drawRoundRect(0,0,this.getBounds().width,this.getBounds().height,20,20);
         Board b = game.getBoard();
-        int x = 10;
-        int y = 30;
+        Color altPattern = Color.white;
+        int x = DrawPiece.xPadding;
+        int y = DrawPiece.yPadding;
         for (int r = 0; r < b.getNumRows(); r++){
             for (int c = 0; c < b.getNumCols();c++){
                 BoardCell cell = b.getCellAt(r,c);
                 if (cell != null) {
                     cell.draw(g, x, y, getCellColor(cell));
                 }else{
-                    //todo draw null cell, alternating bg color
+                    altPattern = altPattern(altPattern);
+                    DrawPiece.drawNullCell(g,x,y,altPattern);
                 }
                 x += DrawPiece.size;
             }
+            altPattern = altPattern(altPattern);
             y+=DrawPiece.size;
-            x = 10;
+            x = DrawPiece.xPadding;
         }
 
     }
@@ -46,7 +52,25 @@ public class BoardCanvas extends Canvas {
                 return DrawPiece.yellowBG;
             }
         }
-        //Todo player cell, creation cell
+        else if(cell.getClass() == PlayerCell.class){
+            if (game.checkGreenPlayerCell(cell)){
+                return DrawPiece.greenBG;
+            }
+            if (game.checkYellowPlayerCell(cell)){
+                return DrawPiece.yellowBG;
+            }
+        }
         return Color.white;
+    }
+
+    private Color altPattern(Color color){
+        if(color == DrawPiece.alt1) {
+            return DrawPiece.alt2;
+        }
+        if (color == DrawPiece.alt2) {
+           return DrawPiece.alt1;
+        }
+
+        return DrawPiece.alt1;
     }
 }
