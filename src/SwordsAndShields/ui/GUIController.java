@@ -39,7 +39,6 @@ public class GUIController {
     public void createPiece(PieceCell pieceCell, int i) {
         try {
             game.createPiece(pieceCell.getID(), Direction.directionFromNumber(i));
-            state = state.nextMajorState();
             frame.setGreenYellowInactive();
             frame.repaint();
         }catch (IllegalMoveException e){

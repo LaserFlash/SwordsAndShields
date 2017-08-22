@@ -129,6 +129,10 @@ public class BoardFrame extends Frame implements ActionListener{
 
                 controller.startScreen();
                 this.dispose();
+                break;
+            case "pass":
+                controller.setState(controller.getState().nextMajorState());
+                break;
         }
     }
 
