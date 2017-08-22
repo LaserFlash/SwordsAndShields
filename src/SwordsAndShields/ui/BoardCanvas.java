@@ -23,6 +23,7 @@ public class BoardCanvas extends JPanel {
         g.drawRoundRect(0,0,this.getBounds().width,this.getBounds().height,20,20);
         Board b = game.getBoard();
         Color altPattern = Color.white;
+        altPattern = altPattern(altPattern);
         int x = DrawPiece.xPadding;
         int y = DrawPiece.yPadding;
         for (int r = 0; r < b.getNumRows(); r++){
@@ -31,9 +32,9 @@ public class BoardCanvas extends JPanel {
                 if (cell != null) {
                     cell.draw(g, x, y, getCellColor(cell));
                 }else{
-                    altPattern = altPattern(altPattern);
                     DrawPiece.drawNullCell(g,x,y,altPattern);
                 }
+                altPattern = altPattern(altPattern);
                 x += DrawPiece.size;
             }
             altPattern = altPattern(altPattern);
