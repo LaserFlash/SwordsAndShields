@@ -101,5 +101,18 @@ public enum Direction {
         }
     }
 
+    public static Direction directionFromNumber(int i){
+        switch (i){
+            case 0:
+                return NORTH;
+            case 1:
+                return EAST;
+            case 2:
+                return SOUTH;
+            case 3: return WEST;
+            default: return NORTH;
+        }
+    }
+
 
 }
