@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class StartMenuFrame extends JFrame implements ActionListener{
+public class StartMenuFrame extends Frame implements ActionListener{
 
     private final GUIController controller;
 
@@ -81,5 +81,14 @@ public class StartMenuFrame extends JFrame implements ActionListener{
                 break;
         }
     }
+
+    @Override
+    public void setGreenActive() {}
+
+    @Override
+    public void setYellowActive() {}
+
+    @Override
+    public void setGreenYellowInactive() {}
 }
 

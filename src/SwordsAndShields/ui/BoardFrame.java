@@ -8,26 +8,26 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class BoardFrame extends JFrame implements ActionListener{
+public class BoardFrame extends Frame implements ActionListener{
     private final JToolBar toolBar;
 
-    private final JPanel greenAvailable;
-    private final JPanel yellowAvailable;
+    private final PiecesCanvas greenAvailable;
+    private final PiecesCanvas yellowAvailable;
     private final JPanel boardCanvas;
-    private final JPanel greenCemetery;
-    private final JPanel yellowCemetery;
+    private final PiecesCanvas greenCemetery;
+    private final PiecesCanvas yellowCemetery;
 
     private final Game game;
 
     private final GUIController controller;
 
-    public BoardFrame(GUIController controller){
+    public BoardFrame(GUIController controller, Game game){
         super(StartMenuFrame.TITLE);
         this.controller = controller;
         /*
          * Setup Game and start
          */
-        this.game = new Game(new Board());
+        this.game = game;
 
         /*
          * Setup GUI display
@@ -38,10 +38,10 @@ public class BoardFrame extends JFrame implements ActionListener{
         /*
          * Setup board display
          */
-        this.greenAvailable = new PiecesCanvas("Green Available", Color.green, game.getGreenPiecesAvailable());
-        this.yellowAvailable = new PiecesCanvas("Yellow Available", Color.yellow, game.getYellowPiecesAvailable());
-        this.greenCemetery = new PiecesCanvas("Green Dead", Color.green, game.getGreenPiecesDead());
-        this.yellowCemetery = new PiecesCanvas("Yellow Dead", Color.yellow, game.getYellowPiecesDead());
+        this.greenAvailable = new PiecesCanvas("Green Available", Color.green, game.getGreenPiecesAvailable(), controller);
+        this.yellowAvailable = new PiecesCanvas("Yellow Available", Color.yellow, game.getYellowPiecesAvailable(), controller);
+        this.greenCemetery = new PiecesCanvas("Green Dead", Color.green, game.getGreenPiecesDead(), controller);
+        this.yellowCemetery = new PiecesCanvas("Yellow Dead", Color.yellow, game.getYellowPiecesDead(), controller);
         this.boardCanvas = new BoardCanvas(game);
 
         JPanel gPanel = new JPanel();
@@ -80,6 +80,8 @@ public class BoardFrame extends JFrame implements ActionListener{
         gPanel.setVisible(true);
         yPanel.setVisible(true);
         setVisible(true);
+
+        setGreenActive();
     }
 
     private JToolBar setupToolBar(){
@@ -128,5 +130,29 @@ public class BoardFrame extends JFrame implements ActionListener{
                 controller.startScreen();
                 this.dispose();
         }
+    }
+
+    @Override
+    public void setGreenActive(){
+        this.greenAvailable.active = true;
+        this.greenCemetery.active = true;
+        this.yellowCemetery.active = false;
+        this.yellowAvailable.active = false;
+    }
+
+    @Override
+    public void setYellowActive(){
+        this.greenAvailable.active = false;
+        this.greenCemetery.active = false;
+        this.yellowCemetery.active = true;
+        this.yellowAvailable.active = true;
+    }
+
+    @Override
+    public void setGreenYellowInactive(){
+        this.greenAvailable.active = false;
+        this.greenCemetery.active = false;
+        this.yellowCemetery.active = false;
+        this.yellowAvailable.active = false;
     }
 }
