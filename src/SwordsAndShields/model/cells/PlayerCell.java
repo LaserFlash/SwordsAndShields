@@ -47,7 +47,8 @@ public class PlayerCell extends BoardCell {
 
     @Override
     public void draw(Graphics g, int x, int y, Color bg) {
-        g.fillOval(x,y, DrawPiece.size/2,DrawPiece.size/2);
+        g.setColor(bg);
+        g.fillOval(x,y, DrawPiece.size,DrawPiece.size);
     }
 
     public char getID(){

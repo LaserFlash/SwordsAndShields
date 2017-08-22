@@ -355,20 +355,28 @@ public class Game {
         this.turnState = turnState;
     }
 
-    public Collection<PieceCell> getGreenPiecesAvailable() {
+    public List<PieceCell> getGreenPiecesAvailable() {
         return players.get(0).getUnusedPieces();
     }
-    public Collection<PieceCell> getYellowPiecesAvailable() {
+    public List<PieceCell> getYellowPiecesAvailable() {
         return players.get(1).getUnusedPieces();
     }
 
-    public Collection<PieceCell> getGreenPiecesDead() {
+    public List<PieceCell> getGreenPiecesDead() {
         return players.get(0).getDeadPieces();
     }
-    public Collection<PieceCell> getYellowPiecesDead() {
+    public List<PieceCell> getYellowPiecesDead() {
         return players.get(1).getDeadPieces();
     }
 
-    public Collection<PieceCell> getGreenPiecesOnBoard(){ return players.get(0).getPiecesOnBoard();}
-    public Collection<PieceCell> getYellowPiecesOnBoard(){ return players.get(1).getPiecesOnBoard();}
+    public List<PieceCell> getGreenPiecesOnBoard(){ return players.get(0).getPiecesOnBoard();}
+    public List<PieceCell> getYellowPiecesOnBoard(){ return players.get(1).getPiecesOnBoard();}
+
+    public boolean checkGreenPlayerCell(BoardCell cell){
+        return players.get(0).getPlayerCell() == cell;
+    }
+
+    public boolean checkYellowPlayerCell(BoardCell cell) {
+        return players.get(1).getPlayerCell() == cell;
+    }
 }
