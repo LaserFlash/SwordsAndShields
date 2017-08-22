@@ -68,8 +68,8 @@
       <file leaf-file-name="BoardFrame.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/SwordsAndShields/ui/BoardFrame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="389">
-              <caret line="134" column="22" lean-forward="false" selection-start-line="134" selection-start-column="22" selection-end-line="134" selection-end-column="22" />
+            <state relative-caret-position="236">
+              <caret line="125" column="66" lean-forward="true" selection-start-line="125" selection-start-column="66" selection-end-line="125" selection-end-column="66" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -878,7 +878,7 @@
       <workItem from="1503273818598" duration="1311000" />
       <workItem from="1503280554795" duration="24036000" />
       <workItem from="1503356380817" duration="2047000" />
-      <workItem from="1503367797567" duration="16612000" />
+      <workItem from="1503367797567" duration="16616000" />
     </task>
     <task id="LOCAL-00001" summary="Swords and Shield text interface">
       <created>1503274005131</created>
@@ -1077,7 +1077,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="124383000" />
+    <option name="totallyTimeSpent" value="124387000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1579,8 +1579,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/SwordsAndShields/ui/BoardFrame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="389">
-          <caret line="134" column="22" lean-forward="false" selection-start-line="134" selection-start-column="22" selection-end-line="134" selection-end-column="22" />
+        <state relative-caret-position="236">
+          <caret line="125" column="66" lean-forward="true" selection-start-line="125" selection-start-column="66" selection-end-line="125" selection-end-column="66" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
