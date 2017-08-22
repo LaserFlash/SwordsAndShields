@@ -126,6 +126,7 @@ public class Game {
         if (board.getCellAt(creationRow,creationCol) != null){
             throw new IllegalMoveException("There is already a piece on the creation cell");
         }
+        if (!getCurrentPlayer().getUnusedPieceIDs().contains(id)){throw new IllegalMoveException("This piece does not belong to current player");}
         performAction(new CreateAction(this,creationRow,creationCol,id,rotation));
     }
 
