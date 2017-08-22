@@ -140,7 +140,7 @@ public class PieceCell extends BoardCell{
                 g.fillRect(x + DrawPiece.size - DrawPiece.itemWidth, y, DrawPiece.itemWidth, DrawPiece.shieldHeight);
                 break;
             case SWORD:
-                g.fillRect(x + DrawPiece.size/2 - DrawPiece.itemWidth/2, y, DrawPiece.itemWidth, DrawPiece.swordHeight);
+                g.fillRect(x + DrawPiece.size/2, y + DrawPiece.size/2 - DrawPiece.itemWidth/2 , DrawPiece.swordHeight, DrawPiece.itemWidth);
                 break;
         }
 
@@ -207,7 +207,7 @@ public class PieceCell extends BoardCell{
          * Rotate the piece 90 degrees clockwise
          */
         private void rotate() {
-            Sides tmp = new Sides(north,east, south, west);
+            Sides tmp = clone();
 
             north = tmp.west;
             east = tmp.north;
