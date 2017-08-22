@@ -13,21 +13,27 @@ import java.util.List;
 
 public class PiecesCanvas extends JPanel {
 
+    private final GUIController controller;
+
     private String heading;
     private List<PieceCell> pieces;
 
     private final String rotationHeading = "Select Rotated Piece";
     private final String normalHeading;
 
-    private final List<PieceCell> avaliablePieces;
+    private final List<PieceCell> availablePieces;
 
     private final Color pieceBG;
 
-    public PiecesCanvas(String s, Color c, List<PieceCell> pieces) {
+    public boolean active = false;
+
+    public PiecesCanvas(String s, Color c, List<PieceCell> pieces, GUIController controller) {
+        this.controller = controller;
+
         this.normalHeading = s;
         this.heading = normalHeading;
-        this.avaliablePieces = pieces;
-        this.pieces = this.avaliablePieces;
+        this.availablePieces = pieces;
+        this.pieces = this.availablePieces;
         this.pieceBG = c;
 
         addMouseListener(new MouseListener(){
@@ -43,27 +49,48 @@ public class PiecesCanvas extends JPanel {
     }
 
     private void selectPieceForCreation(Point p) {
+        if (!active){return;}
+        if (controller.getState() != GUITurnState.Create && controller.getState() != GUITurnState.Create_Rotate){
+            return;
+        }
+
         PieceCell piece = null;
         try {
             piece = getSelectedPiece(p);
         } catch (NullPointerException | IndexOutOfBoundsException e){
-            this.heading = this.normalHeading;
-            this.pieces = this.avaliablePieces;
-            repaint();
+            revertToAvailable();
+            controller.setState(GUITurnState.Create);
             return;
         }
 
         if (piece == null){return;}
 
+        if (controller.getState() == GUITurnState.Create_Rotate){
+            controller.createPiece(pieces.get(0),pieces.indexOf(piece));
+            controller.setState(GUITurnState.Move_Rotate);
+            revertToAvailable();
+            return;
+        }
+        /*
+         * Draw possible rotations of the piece
+         * Requires cloning so pieces don't all rotate
+         */
         this.heading = this.rotationHeading;
         this.pieces = new ArrayList<>();
-        PieceCell tmp = piece.clone();
 
-        for (int i = 0; i <= Direction.values().length; i++){
+        PieceCell tmp = piece;
+        for (int i = 0; i < Direction.values().length; i++){
             pieces.add(tmp);
             tmp = tmp.clone();
             tmp.rotate(Direction.EAST);
         }
+        controller.setState(GUITurnState.Create_Rotate);
+        repaint();
+    }
+
+    private void revertToAvailable(){
+        this.heading = this.normalHeading;
+        this.pieces = this.availablePieces;
         repaint();
     }
 
