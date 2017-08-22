@@ -222,4 +222,6 @@ public class PieceCell extends BoardCell{
             return new Sides(north,east,south,west);
         }
     }
+
+    public PieceCell clone() {return new PieceCell(id,sides.clone());}
 }

@@ -112,15 +112,15 @@ public class Player {
 
     public Collection<Character> getDeadPieceIDs(){return grave.keySet();}
 
-    public Collection<PieceCell> getUnusedPieces(){
-        return Collections.unmodifiableCollection(pieces.values());
+    public List<PieceCell> getUnusedPieces(){
+        return Collections.unmodifiableList(new ArrayList<>(pieces.values()));
     }
 
-    public Collection<PieceCell> getDeadPieces() {
-        return Collections.unmodifiableCollection(grave.values());
+    public List<PieceCell> getDeadPieces() {
+        return Collections.unmodifiableList( new ArrayList<>(grave.values()));
     }
 
-    public Collection<PieceCell> getPiecesOnBoard() {
-        return Collections.unmodifiableCollection(piecesOnBoard.values());
+    public List<PieceCell> getPiecesOnBoard() {
+        return Collections.unmodifiableList(new ArrayList<>(piecesOnBoard.values()));
     }
 }
