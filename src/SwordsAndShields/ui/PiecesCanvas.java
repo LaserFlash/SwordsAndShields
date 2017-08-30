@@ -1,6 +1,7 @@
 package SwordsAndShields.ui;
 
 import SwordsAndShields.model.Direction;
+import SwordsAndShields.model.Game;
 import SwordsAndShields.model.cells.PieceCell;
 
 import javax.swing.*;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class PiecesCanvas extends JPanel {
+public class PiecesCanvas extends CanvasPanel {
 
     private final GUIController controller;
 
@@ -27,7 +28,8 @@ public class PiecesCanvas extends JPanel {
 
     public boolean active = false;
 
-    public PiecesCanvas(String s, Color c, List<PieceCell> pieces, GUIController controller) {
+    public PiecesCanvas(String s, Color c, List<PieceCell> pieces, GUIController controller, Game game) {
+        super(controller,game);
         this.controller = controller;
 
         this.normalHeading = s;
@@ -35,39 +37,39 @@ public class PiecesCanvas extends JPanel {
         this.availablePieces = pieces;
         this.pieces = this.availablePieces;
         this.pieceBG = c;
-
-        addMouseListener(new MouseListener(){
-            public void mouseClicked(MouseEvent e){
-                selectPieceForCreation(e.getPoint());
-            }
-
-            public void mouseEntered(MouseEvent arg0) {}
-            public void mouseExited(MouseEvent arg0) {}
-            public void mousePressed(MouseEvent arg0) {}
-            public void mouseReleased(MouseEvent arg0) {}
-        });
     }
 
-    private void selectPieceForCreation(Point p) {
-        if (!active){return;}
-        if (controller.getState() != GUITurnState.Create && controller.getState() != GUITurnState.Create_Rotate){
-            return;
-        }
+    @Override
+    protected void selectPiece(Point p) {
+        if (!active){return;}   //Disable selecting if canvas not active
+
+        if (controller.getState() != GUITurnState.Create && controller.getState() != GUITurnState.Create_Rotate){return;} //Disable selection if GUI is in different state.
 
         PieceCell piece = null;
         try {
             piece = getSelectedPiece(p);
-        } catch (NullPointerException | IndexOutOfBoundsException e){
+        }
+        /*
+         * If nullptr exception or index out of bounds thrown then a piece was not selected, so go back to giving \
+         * option to select a piece
+         */
+        catch (NullPointerException | IndexOutOfBoundsException e){
             revertToAvailable();
             controller.setState(GUITurnState.Create);
             return;
         }
 
-        if (piece == null){return;}
+        if (piece == null){return;} //Shouldn't occur but just incase
 
+        /*
+         * In case of user selecting a particular rotation of a piece to place
+         */
         if (controller.getState() == GUITurnState.Create_Rotate){
             controller.createPiece(pieces.get(0),pieces.indexOf(piece));
             controller.setState(GUITurnState.Move_Rotate);
+            /*
+             * User selected piece to create and was created
+             */
             revertToAvailable();
             return;
         }

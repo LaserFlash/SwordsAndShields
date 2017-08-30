@@ -2,19 +2,26 @@ package SwordsAndShields.ui;
 
 import SwordsAndShields.model.Board;
 import SwordsAndShields.model.Game;
+import SwordsAndShields.model.IllegalMoveException;
 import SwordsAndShields.model.cells.BoardCell;
 import SwordsAndShields.model.cells.PieceCell;
 import SwordsAndShields.model.cells.PlayerCell;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-public class BoardCanvas extends JPanel {
+public class BoardCanvas extends CanvasPanel {
 
-    private final Game game;
 
-    public BoardCanvas(Game game){
-        this.game = game;
+    public BoardCanvas(GUIController controller,Game game){
+        super(controller,game);
+    }
+
+    @Override
+    protected void selectPiece(Point p) {
+
     }
 
     @Override
@@ -44,6 +51,12 @@ public class BoardCanvas extends JPanel {
 
     }
 
+    /**
+     * Get the colour that the cell/piece should be drawn.
+     * Depends on what player the cell belongs to.
+     * @param cell
+     * @return
+     */
     private Color getCellColor(BoardCell cell){
         if (cell.getClass() == PieceCell.class){
             if (game.getGreenPiecesOnBoard().contains(cell)){
@@ -64,6 +77,11 @@ public class BoardCanvas extends JPanel {
         return Color.white;
     }
 
+    /**
+     * Manage the colour to form an alternating pattern for a tile affect
+     * @param color
+     * @return
+     */
     private Color altPattern(Color color){
         if(color == DrawPiece.alt1) {
             return DrawPiece.alt2;
@@ -73,5 +91,24 @@ public class BoardCanvas extends JPanel {
         }
 
         return DrawPiece.alt1;
+    }
+
+
+    /**
+     * Calculate which piece was selected
+     * @param p
+     * @return
+     * @throws IllegalMoveException
+     */
+    private PieceCell getSelectedPiece(Point p) throws IllegalMoveException {
+        int i =  p.x / (DrawPiece.xPadding + DrawPiece.size) + ((p.y - DrawPiece.yPadding) / (DrawPiece.xPadding + DrawPiece.size)) * 4;
+        BoardCell cell = game.getBoard().getCellAt(i%game.getBoard().getNumCols(),i-i%game.getBoard().getNumCols());
+        if (cell == null){
+            throw new IllegalMoveException("No piece selected");
+        }
+        if (cell.getClass() != PieceCell.class){
+            throw new IllegalMoveException("Not a piece");
+        }
+        return (PieceCell) cell;
     }
 }

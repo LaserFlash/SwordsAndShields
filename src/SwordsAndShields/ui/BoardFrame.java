@@ -38,11 +38,11 @@ public class BoardFrame extends Frame implements ActionListener{
         /*
          * Setup board display
          */
-        this.greenAvailable = new PiecesCanvas("Green Available", Color.green, game.getGreenPiecesAvailable(), controller);
-        this.yellowAvailable = new PiecesCanvas("Yellow Available", Color.yellow, game.getYellowPiecesAvailable(), controller);
-        this.greenCemetery = new PiecesCanvas("Green Dead", Color.green, game.getGreenPiecesDead(), controller);
-        this.yellowCemetery = new PiecesCanvas("Yellow Dead", Color.yellow, game.getYellowPiecesDead(), controller);
-        this.boardCanvas = new BoardCanvas(game);
+        this.greenAvailable = new PiecesCanvas("Green Available", Color.green, game.getGreenPiecesAvailable(), controller, game);
+        this.yellowAvailable = new PiecesCanvas("Yellow Available", Color.yellow, game.getYellowPiecesAvailable(), controller, game);
+        this.greenCemetery = new PiecesCanvas("Green Dead", Color.green, game.getGreenPiecesDead(), controller, game);
+        this.yellowCemetery = new PiecesCanvas("Yellow Dead", Color.yellow, game.getYellowPiecesDead(), controller, game);
+        this.boardCanvas = new BoardCanvas(controller, game);
 
         JPanel gPanel = new JPanel();
         gPanel.setLayout(new BorderLayout());
