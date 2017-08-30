@@ -1,7 +1,7 @@
 package SwordsAndShields.ui;
 
-import SwordsAndShields.model.Board;
 import SwordsAndShields.model.Game;
+import SwordsAndShields.model.IllegalMoveException;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,6 +20,7 @@ public class BoardFrame extends Frame implements ActionListener{
     private final Game game;
 
     private final GUIController controller;
+    private boolean alt = true;
 
     public BoardFrame(GUIController controller, Game game){
         super(StartMenuFrame.TITLE);
@@ -122,6 +123,7 @@ public class BoardFrame extends Frame implements ActionListener{
                 //Todo message based on actual winner
                 JDialog dialog = new JDialog(this,"Game Over");
                 dialog.add(new JLabel("Game Over"),BorderLayout.CENTER);
+                dialog.add(new JLabel(game.getCurrentPlayer().getName() + " Lost"),BorderLayout.CENTER);
                 dialog.pack();
                 dialog.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
                 dialog.setModal(true);  //Make it so Frame waits for dialog to close
@@ -130,10 +132,42 @@ public class BoardFrame extends Frame implements ActionListener{
                 controller.startScreen();
                 this.dispose();
                 break;
-            case "pass":
-                controller.setState(controller.getState().nextMajorState());
+            case "pass" :
+                controller.passState();
+                if (greenAvailable.active){
+                    setGreenYellowInactive();
+                }else if(yellowAvailable.active){
+                    setGreenYellowInactive();
+                }else if (!yellowAvailable.active &! greenAvailable.active){
+                    if (alt){
+                        setGreenActive();
+                    }else {
+                        setYellowActive();
+                    }
+                }
+                break;
+            case "undo":
+                try {
+                    game.undo();
+                    controller.setState(GUITurnState.fromGameTurnState(game.getTurnState()));
+                    if (controller.getState() == GUITurnState.Create){
+                        if (!alt){
+                            setGreenActive();
+                        }else {
+                            setYellowActive();
+                        }
+                    }
+                    repaint();
+                } catch (IllegalMoveException e1) {}
                 break;
         }
+    }
+
+    public void update(){
+        greenAvailable.updatePieces(game.getGreenPiecesAvailable());
+        greenCemetery.updatePieces(game.getGreenPiecesDead());
+        yellowAvailable.updatePieces(game.getYellowPiecesAvailable());
+        yellowAvailable.updatePieces(game.getYellowPiecesDead());
     }
 
     @Override
@@ -142,6 +176,7 @@ public class BoardFrame extends Frame implements ActionListener{
         this.greenCemetery.active = true;
         this.yellowCemetery.active = false;
         this.yellowAvailable.active = false;
+        alt = false;
     }
 
     @Override
@@ -150,6 +185,7 @@ public class BoardFrame extends Frame implements ActionListener{
         this.greenCemetery.active = false;
         this.yellowCemetery.active = true;
         this.yellowAvailable.active = true;
+        alt = true;
     }
 
     @Override

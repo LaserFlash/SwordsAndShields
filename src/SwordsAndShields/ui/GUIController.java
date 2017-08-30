@@ -6,8 +6,6 @@ import SwordsAndShields.model.Game;
 import SwordsAndShields.model.IllegalMoveException;
 import SwordsAndShields.model.cells.PieceCell;
 
-import javax.swing.*;
-
 public class GUIController {
     private static Frame frame;
     private Game game;
@@ -31,8 +29,13 @@ public class GUIController {
     public GUITurnState getState() {
         return state;
     }
-    public void setState(GUITurnState state) {
-        this.state = state;
+    public void previousState() {
+        this.state = state.previousMajorState();
+        update();
+    }
+    public void nextState() {
+        this.state = state.nextMajorState();
+        update();
     }
 
 
@@ -40,6 +43,7 @@ public class GUIController {
         try {
             game.createPiece(pieceCell.getID(), Direction.directionFromNumber(i));
             frame.setGreenYellowInactive();
+            update();
             frame.repaint();
         }catch (IllegalMoveException e){
 
@@ -48,5 +52,25 @@ public class GUIController {
 
     public static void main(String[] args) {
         GUIController controller = new GUIController();
+    }
+
+    public void passState() {
+        this.state = state.passState();
+        game.passTurnState();
+        update();
+    }
+
+    public void setState(GUITurnState state) {
+        this.state = state;
+        update();
+    }
+
+    private void update(){
+        if (frame.getClass() == BoardFrame.class){
+            BoardFrame f = (BoardFrame) frame;
+            f.update();
+            f.repaint();
+        }
+
     }
 }

@@ -4,11 +4,9 @@ import SwordsAndShields.model.Direction;
 import SwordsAndShields.model.Game;
 import SwordsAndShields.model.cells.PieceCell;
 
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 
@@ -22,7 +20,7 @@ public class PiecesCanvas extends CanvasPanel {
     private final String rotationHeading = "Select Rotated Piece";
     private final String normalHeading;
 
-    private final List<PieceCell> availablePieces;
+    private List<PieceCell> availablePieces;
 
     private final Color pieceBG;
 
@@ -50,12 +48,12 @@ public class PiecesCanvas extends CanvasPanel {
             piece = getSelectedPiece(p);
         }
         /*
-         * If nullptr exception or index out of bounds thrown then a piece was not selected, so go back to giving \
+         * If nullptr exception or index out of bounds thrown then a piece was not selected, so go back to giving
          * option to select a piece
          */
         catch (NullPointerException | IndexOutOfBoundsException e){
             revertToAvailable();
-            controller.setState(GUITurnState.Create);
+            controller.previousState();
             return;
         }
 
@@ -66,7 +64,7 @@ public class PiecesCanvas extends CanvasPanel {
          */
         if (controller.getState() == GUITurnState.Create_Rotate){
             controller.createPiece(pieces.get(0),pieces.indexOf(piece));
-            controller.setState(GUITurnState.Move_Rotate);
+            controller.nextState();
             /*
              * User selected piece to create and was created
              */
@@ -86,7 +84,7 @@ public class PiecesCanvas extends CanvasPanel {
             tmp = tmp.clone();
             tmp.rotate(Direction.EAST);
         }
-        controller.setState(GUITurnState.Create_Rotate);
+        controller.nextState();
         repaint();
     }
 
@@ -98,6 +96,7 @@ public class PiecesCanvas extends CanvasPanel {
 
     private PieceCell getSelectedPiece(Point p) {
         int i =  p.x / (DrawPiece.xPadding + DrawPiece.size) + ((p.y - DrawPiece.yPadding)/ (DrawPiece.xPadding + DrawPiece.size)) * 4;
+
         return pieces.get(i);
     }
 
@@ -105,6 +104,7 @@ public class PiecesCanvas extends CanvasPanel {
 
     @Override
     public void paintComponent(Graphics g){
+
         super.paintComponent(g);
         g.drawRoundRect(0,0,this.getBounds().width,this.getBounds().height,20,20);
         g.drawChars(heading.toCharArray(),0,heading.length(),DrawPiece.xPadding,20);
@@ -121,6 +121,10 @@ public class PiecesCanvas extends CanvasPanel {
             x+= DrawPiece.size + DrawPiece.xPadding;
             i++;
         }
+    }
+
+    public void updatePieces(List<PieceCell> l){
+        this.availablePieces = l;
     }
 
 }

@@ -124,7 +124,7 @@ public class PieceCell extends BoardCell{
     public void draw(Graphics g, int x, int y, Color bg) {
         g.setColor(bg);
         g.fillRect(x,y, DrawPiece.size,DrawPiece.size);
-        g.setColor(Color.darkGray);
+        g.setColor(Color.black);
 
         switch (getSide(Direction.NORTH)){
             case SHIELD:

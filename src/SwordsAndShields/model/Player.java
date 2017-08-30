@@ -113,11 +113,11 @@ public class Player {
     public Collection<Character> getDeadPieceIDs(){return grave.keySet();}
 
     public List<PieceCell> getUnusedPieces(){
-        return Collections.unmodifiableList(new ArrayList<>(pieces.values()));
+        return new ArrayList<>(pieces.values());
     }
 
     public List<PieceCell> getDeadPieces() {
-        return Collections.unmodifiableList( new ArrayList<>(grave.values()));
+        return new ArrayList<>(grave.values());
     }
 
     public List<PieceCell> getPiecesOnBoard() {
