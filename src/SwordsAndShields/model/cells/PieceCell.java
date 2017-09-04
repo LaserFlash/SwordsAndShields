@@ -224,4 +224,16 @@ public class PieceCell extends BoardCell{
     }
 
     public PieceCell clone() {return new PieceCell(id,sides.clone());}
+
+    @Override
+    public boolean equals(Object o) {
+        if (o.getClass() != this.getClass()){
+            return false;
+        }
+        PieceCell p = (PieceCell) o;
+        if (id != p.getID()){
+            return false;
+        }
+        return true;
+    }
 }

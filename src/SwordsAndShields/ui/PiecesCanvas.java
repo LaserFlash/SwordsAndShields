@@ -123,6 +123,10 @@ public class PiecesCanvas extends CanvasPanel {
         }
     }
 
+    /**
+     * Update the list of pieces to reflect changes
+     * @param l
+     */
     public void updatePieces(List<PieceCell> l){
         this.availablePieces = l;
     }

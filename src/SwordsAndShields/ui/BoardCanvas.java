@@ -1,9 +1,6 @@
 package SwordsAndShields.ui;
 
-import SwordsAndShields.model.Board;
-import SwordsAndShields.model.Direction;
-import SwordsAndShields.model.Game;
-import SwordsAndShields.model.IllegalMoveException;
+import SwordsAndShields.model.*;
 import SwordsAndShields.model.cells.BoardCell;
 import SwordsAndShields.model.cells.PieceCell;
 import SwordsAndShields.model.cells.PlayerCell;
@@ -16,6 +13,7 @@ public class BoardCanvas extends CanvasPanel implements KeyListener{
     private static final int nearEdge = 10;
 
     private PieceCell selectedPiece;
+    private int rotations = 0;
 
     public BoardCanvas(GUIController controller, Game game){
         super(controller,game);
@@ -31,7 +29,7 @@ public class BoardCanvas extends CanvasPanel implements KeyListener{
          */
         if (controller.getState() == GUITurnState.Move_Rotate){
             try {
-                this.selectedPiece = getSelectedPiece(p);
+                this.selectedPiece = getSelectedPiece(p).clone();
                 controller.nextState();
                 repaint();
                 requestFocus(true);
@@ -50,18 +48,43 @@ public class BoardCanvas extends CanvasPanel implements KeyListener{
             try {
                 if (d != null) {
                     game.movePiece(selectedPiece.getID(),d);
-                } else {
-                    game.rotatePiece(selectedPiece.getID(), Direction.EAST);
+                    this.selectedPiece = null;
+                    controller.previousState();
+                } else if (insideCell(p)){
+                    selectedPiece.rotate(Direction.EAST);
+                    rotations = ++rotations >= 4 ? 0: rotations;
+                }else{
+                    controller.previousState();
+                    game.rotatePiece(selectedPiece.getID(), Direction.directionFromNumber(rotations));
+                    rotations = 0;
+                    this.selectedPiece = null;
                 }
             } catch (IllegalMoveException e) {}
             finally {
-                this.selectedPiece = null;
-                controller.previousState();
                 repaint();
             }
         }
     }
 
+    /**
+     * Is the given point inside the area the currently selected piece is drawn in.
+     * @param pClick
+     * @return
+     */
+    private boolean insideCell(Point pClick) {
+        Point pCell = findTopCornerOfCell(selectedPiece);
+        if (pCell.x <= pClick.x && pCell.x + DrawPiece.size >= pClick.x){
+            if (pCell.y <= pClick.y && pCell.y + DrawPiece.size >= pClick.y)
+                return true;
+        }
+        return false;
+    }
+
+    /**
+     * Check if the point is near edge of the currently selected piece
+     * @param pClick
+     * @return the edge the point is near
+     */
     private Direction nearEdge(Point pClick) {
         Point pCell = findTopCornerOfCell(selectedPiece);
         if (pCell.x <= pClick.x && pCell.x + nearEdge >= pClick.x){
@@ -80,6 +103,11 @@ public class BoardCanvas extends CanvasPanel implements KeyListener{
         return null;
     }
 
+    /**
+     * Given a cell find the point that would represent its top corner on the JPanel
+     * @param selectedCell
+     * @return
+     */
     private Point findTopCornerOfCell(BoardCell selectedCell){
         Board b = game.getBoard();
         int x = DrawPiece.xPadding;
@@ -87,7 +115,7 @@ public class BoardCanvas extends CanvasPanel implements KeyListener{
         for (int r = 0; r < b.getNumRows(); r++) {
             for (int c = 0; c < b.getNumCols(); c++) {
                 BoardCell cell = b.getCellAt(r, c);
-                if (cell == selectedCell) {
+                if (cell != null && cell.equals(selectedCell)) {
                     return new Point(x,y);
                 }
                 x += DrawPiece.size;
@@ -134,8 +162,8 @@ public class BoardCanvas extends CanvasPanel implements KeyListener{
             for (int r = 0; r < b.getNumRows(); r++) {
                 for (int c = 0; c < b.getNumCols(); c++) {
                     BoardCell cell = b.getCellAt(r, c);
-                    if (cell == selectedPiece){
-                        cell.draw(g, x, y, getCellColor(cell));
+                    if (cell != null && cell.equals(selectedPiece)){
+                        selectedPiece.draw(g, x, y, getCellColor(cell));
                         return;
                     }
                     x += DrawPiece.size;

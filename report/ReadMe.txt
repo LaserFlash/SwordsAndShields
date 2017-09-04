@@ -1,5 +1,5 @@
-Code Provided in Assignment1Code.jar
-This can be excuted in terminal with java -jar Assignment1Code.jar
+Code Provided in Assignment2Code.jar
+This can be executed in terminal with java -jar Assignment2Code.jar
 
 Import or extract the jar to view the source code
 

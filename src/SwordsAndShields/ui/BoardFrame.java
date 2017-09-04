@@ -167,7 +167,7 @@ public class BoardFrame extends Frame implements ActionListener{
         greenAvailable.updatePieces(game.getGreenPiecesAvailable());
         greenCemetery.updatePieces(game.getGreenPiecesDead());
         yellowAvailable.updatePieces(game.getYellowPiecesAvailable());
-        yellowAvailable.updatePieces(game.getYellowPiecesDead());
+        yellowCemetery.updatePieces(game.getYellowPiecesDead());
     }
 
     @Override
